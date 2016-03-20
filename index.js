@@ -1,28 +1,22 @@
 import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import logger from 'redux-logger'
-import thunk from 'redux-thunk'
-import reducer from './reducers'
-import { getAllProducts } from './actions'
-import App from './containers/App'
+import { Router, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+import configureStore from './store/configureStore'
+import DevTools from './containers/DevTools'
+import routes from './routes'
 
-const middleware = process.env.NODE_ENV === 'production' ?
-  [ thunk ] :
-  [ thunk, logger() ]
-
-const store = createStore(
-  reducer,
-  applyMiddleware(...middleware)
-)
-
-store.dispatch(getAllProducts())
+const store = configureStore()
+const history = syncHistoryWithStore(browserHistory, store)
 
 render(
   <Provider store={store}>
-    <App />
+    <div>
+      <Router history={history} routes={routes} />
+      <DevTools />
+    </div>
   </Provider>,
   document.getElementById('root')
 )
