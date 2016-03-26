@@ -12,11 +12,16 @@ class Login extends React.Component {
       user
     } = this.props;
 
+    const responseFacebook = (response) => {
+      console.log(response);
+      loginCallback(response);
+    }
+
     return (
       <FacebookLogin
       appId="495899663951920"
       autoLoad={true}
-      callback={loginCallback} />
+      callback={responseFacebook} />
     )
   }
 }
@@ -24,14 +29,6 @@ class Login extends React.Component {
 Login.propTypes = {
   loginCallback: PropTypes.func,
   user: PropTypes.any
-}
-
-Login.defaultProps = {
-  loginCallback: responseFacebook
-}
-
-const responseFacebook = (response) => {
-  console.log(response);
 }
 
 export default Login;

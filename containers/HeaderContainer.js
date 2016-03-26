@@ -12,7 +12,7 @@ class HeaderContainer extends Component {
     } = this.props;
 
     return (
-      <Login loginCallback={facebookCallback} />
+      <Login loginCallback={ (response) => this.props.facebookCallback(response) } />
     )
   }
 }
