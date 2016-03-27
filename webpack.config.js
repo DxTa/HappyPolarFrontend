@@ -1,5 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -15,7 +17,15 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin()
+    // new ExtractTextPlugin('public/style.css', {
+        // allChunks: true
+    // })
   ],
+  postcss: function() {
+    return [autoprefixer({
+      browsers: ['last 3 versions']
+    })];
+  },
   module: {
     loaders: [
       {
@@ -29,6 +39,11 @@ module.exports = {
         loaders: [ 'json' ],
         exclude: /node_modules/,
         include: __dirname
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'postcss', 'sass']
+        // loader: ExtractTextPlugin.extract('css!sass')
       }
     ]
   }

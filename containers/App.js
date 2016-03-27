@@ -1,14 +1,24 @@
-import React, { Component } from 'react'
+import '../static/app.scss'
+
+import React, { Component, PropTypes } from 'react'
 import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
 
 export default class App extends Component {
+
   render() {
     return (
       <div>
         <HeaderContainer />
-        <h2>Happy Polar</h2>
-        <hr/>
+        <div id="content">
+          {this.props.children}
+        </div>
+        <FooterContainer />
       </div>
     )
   }
+}
+
+App.propTypes = {
+  children: PropTypes.any
 }

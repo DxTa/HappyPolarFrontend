@@ -15,7 +15,7 @@ render(
   <Provider store={store}>
     <div>
       <Router history={history} routes={routes} />
-      <DevTools />
+      { 1 == 0 ? <DevTools /> : "" }
     </div>
   </Provider>,
   document.getElementById('root')

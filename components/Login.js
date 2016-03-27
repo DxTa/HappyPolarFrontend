@@ -21,7 +21,9 @@ class Login extends React.Component {
       <FacebookLogin
       appId="495899663951920"
       autoLoad={true}
-      callback={responseFacebook} />
+      callback={responseFacebook}
+      cssClass="my-facebook-button-class"
+      icon="fa-facebook" />
     )
   }
 }
