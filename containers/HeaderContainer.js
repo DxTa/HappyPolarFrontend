@@ -10,6 +10,8 @@ import {
   Grid,
   Row,
   Col } from 'react-bootstrap'
+import CSSModules from 'react-css-modules'
+import styles from './Header.css'
 
 class HeaderContainer extends Component {
 
@@ -23,23 +25,19 @@ class HeaderContainer extends Component {
         <MenuItem eventKey="1">
           <Link to="/profile">Profile</Link>
         </MenuItem>
-        <MenuItem eventKey="2">Another action</MenuItem>
-        <MenuItem eventKey="3" active>Active Item</MenuItem>
-        <MenuItem divider />
-        <MenuItem eventKey="4">Separated link</MenuItem>
       </DropdownButton>
     );
 
     return (
-      <Grid id="header">
-        <Row className="vertical-middle">
+      <Grid styleName="header" id="header">
+        <Row styleName="vertical-middle" className="vertical-middle">
           <Col xs={6} ms={6} md={6}>
             Left Header
           </Col>
           <Col xs={6} ms={6} md={6}>
-            <div className="rightHeader">
+            <div styleName="rightHeader" className="rightHeader">
               {
-                user.email ?
+                user.facebook ?
                   renderDropdownButton :
                   <Login loginCallback={ (response) => this.props.facebookCallback(response) } />
               }
@@ -53,7 +51,8 @@ class HeaderContainer extends Component {
 
 HeaderContainer.propTypes = {
   facebookCallback: PropTypes.func.isRequired,
-  user: PropTypes.any
+  user: PropTypes.any,
+  styles: PropTypes.any
 }
 
 const mapStateToProps = (state) => {
@@ -67,4 +66,4 @@ export default connect(
   {
     facebookCallback
   }
-)(HeaderContainer)
+)(CSSModules(HeaderContainer, styles))

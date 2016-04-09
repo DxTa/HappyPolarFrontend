@@ -1,0 +1,16 @@
+.content {
+  max-height: calc(100% - 120px);
+  overflow-y: scroll;
+  padding: 0px 2% !important;
+  margin-top: 60px !important;
+}
+
+
+.root {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+

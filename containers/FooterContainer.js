@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Login from '../components/Login'
 import { getUser } from '../reducers/user'
+import CSSModules from 'react-css-modules'
+import styles from './Footer.css'
 
 class FooterContainer extends Component {
 
@@ -11,7 +13,7 @@ class FooterContainer extends Component {
     } = this.props;
 
     return (
-      <div id="footer">
+      <div styleName="footer" id="footer">
         <h2>Footer here</h2>
       </div>
     )
@@ -32,4 +34,4 @@ export default connect(
   mapStateToProps,
   {
   }
-)(FooterContainer)
+)(CSSModules(FooterContainer, styles))

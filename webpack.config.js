@@ -1,31 +1,32 @@
 var path = require('path')
 var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+function isProduction() {
+	return process.env.NODE_ENV === 'production';
+}
+
+var cssLoader = isProduction === true ?
+  ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]') :
+  "style?sourceMap!css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!sass?sourceMap";
+
+var plugins = isProduction === true ?
+    [new ExtractTextPlugin('app.css', {
+      allChunks: true
+    })] :
+    [];
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
     './index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
+    path: path.join(__dirname, '../api/public'),
+    filename: 'bundle.js'
+    // publicPath: '/static/'
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-    // new ExtractTextPlugin('public/style.css', {
-        // allChunks: true
-    // })
-  ],
-  postcss: function() {
-    return [autoprefixer({
-      browsers: ['last 3 versions']
-    })];
-  },
+  plugins: plugins,
   module: {
     loaders: [
       {
@@ -41,10 +42,20 @@ module.exports = {
         include: __dirname
       },
       {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'postcss', 'sass']
-        // loader: ExtractTextPlugin.extract('css!sass')
+        test: /\.css$/,
+        loader: cssLoader
       }
+      // {
+      // test: /\.scss$/,
+      // loaders: ['style', 'css', 'postcss', 'sass']
+      // // loader: ExtractTextPlugin.extract('css!sass')
+      // }
+    ]
+  },
+  resolve: {
+    extensions: [
+      '',
+      '.js'
     ]
   }
 }

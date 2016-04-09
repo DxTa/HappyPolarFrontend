@@ -1,16 +1,17 @@
-import '../static/app.scss'
-
 import React, { Component, PropTypes } from 'react'
 import HeaderContainer from './HeaderContainer'
 import FooterContainer from './FooterContainer'
+import CSSModules from 'react-css-modules'
+import styles from './App.css'
 
-export default class App extends Component {
+class App extends Component {
+
 
   render() {
     return (
-      <div>
+      <div styleName='root'>
         <HeaderContainer />
-        <div id="content">
+        <div styleName='content' id="content">
           {this.props.children}
         </div>
         <FooterContainer />
@@ -22,3 +23,5 @@ export default class App extends Component {
 App.propTypes = {
   children: PropTypes.any
 }
+
+export default CSSModules(App, styles)

@@ -28,5 +28,21 @@ export default {
     })
     // return cb();
     // return
+  },
+
+  fetchProfile(id, cb) {
+    fetch(Endpoints.USERS + id)
+    .then((response) => {
+      console.log(response)
+      response.json()
+    })
+    .then((responseJSON) => {
+      console.log(responseJSON);
+      return cb(responseJSON);
+    })
+    .catch((error) => {
+      console.log("ERROR", error);
+    })
   }
+
 }
