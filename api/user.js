@@ -43,6 +43,38 @@ export default {
     .catch((error) => {
       console.log("ERROR", error);
     })
+  },
+
+  updateProfile(payload, cb) {
+    const {
+      _id,
+      age,
+      height,
+      weight
+    } = payload;
+    fetch(Endpoints.USERS + _id, {
+      // mode: 'no-cors',
+      // credentials: 'same-origin',
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        age,
+        height,
+        weight
+      })
+    })
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      return cb(responseJSON);
+    })
+    .catch((error) => {
+      console.log("ERROR", error);
+    })
+    // return cb();
+    // return
   }
 
 }

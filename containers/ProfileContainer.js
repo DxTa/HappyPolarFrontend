@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Login from '../components/Login'
 import { getUser } from '../reducers/user'
+import { updateProfile } from '../actions'
 import { browserHistory } from 'react-router'
 import {
   Grid,
@@ -10,22 +11,46 @@ import {
   Thumbnail,
   form,
   FormControls,
-  ButtonInput
+  Button,
+  Input
 } from 'react-bootstrap'
 
 class ProfileContainer extends Component {
 
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      draft: {}
+    }
   }
+
+  // componentDidMount() {
+  // }
+
+  // handleChange() {
+    // console.log("AAA",this.refs)
+  // }
 
   render() {
     const {
-      user
+      user,
+      updateProfile
     } = this.props;
 
     const navigateViaRouter = (event) => {
       event.preventDefault()
       browserHistory.push(event.currentTarget.href)
+    }
+
+    const handleChange = () => {
+      this.setState({
+        draft: {
+          _id: user._id,
+          age: this.refs.age.getValue(),
+          height: this.refs.height.getValue(),
+          weight: this.refs.weight.getValue()
+        }
+      })
     }
 
     return (
@@ -42,14 +67,48 @@ class ProfileContainer extends Component {
               <form className="form-horizontal">
                 <FormControls.Static label="Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={user.name} />
                 <FormControls.Static label="Email" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={user.facebook.email} />
-                <FormControls.Static label="Age" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={user.age} />
-                <FormControls.Static label="Height" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={user.height} />
-                <FormControls.Static label="Weight" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={user.weight} />
 
-                <ButtonInput type="reset" value="Reset Button" />
-                <ButtonInput type="submit" value="Submit Button" />
+                <Input type="number"
+                  label="Age"
+                  labelClassName="col-xs-2"
+                  wrapperClassName="col-xs-10"
+                  value={this.state.draft.age || user.age}
+                  placeholder="Enter your Height"
+                  ref="age"
+                  onChange={handleChange}
+                />
+
+                <Input type="text"
+                  hasFeedback
+                  label="Height (cm)"
+                  labelClassName="col-xs-2"
+                  wrapperClassName="col-xs-10"
+                  value={this.state.draft.height || user.height}
+                  placeholder="Enter your Height"
+                  ref="height"
+                  onChange={handleChange}
+                />
+
+                <Input type="number"
+                  label="Weight (kg)"
+                  labelClassName="col-xs-2"
+                  wrapperClassName="col-xs-10"
+                  value={this.state.draft.weight || user.weight}
+                  placeholder="Enter your weight"
+                  ref="weight"
+                  onChange={handleChange}
+                />
 
               </form>
+
+              <Button
+                bsStyle="primary"
+                disabled={user.isLoading}
+                onClick={!user.isLoading ? () => {
+                  updateProfile(this.state.draft)
+                } : null}>
+                {user.isLoading ? 'Loading...' : 'Save'}
+              </Button>
             </Col>
           </Row>
         </Grid>
@@ -59,7 +118,8 @@ class ProfileContainer extends Component {
 }
 
 ProfileContainer.propTypes = {
-  user: PropTypes.any
+  user: PropTypes.any,
+  updateProfile: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -71,5 +131,6 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   {
+    updateProfile
   }
 )(ProfileContainer)

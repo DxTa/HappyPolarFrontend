@@ -3,7 +3,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  UPDATE_PROFILE
+  UPDATE_PROFILE,
+  UPDATE_FAIL,
+  INITIAL_UPDATE
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -11,7 +13,8 @@ const initialState = {
   id: "",
   token: "",
   email: "",
-  facebook: ""
+  facebook: "",
+  isLoading: false
 }
 
 export default function user(state = initialState, action) {
@@ -25,11 +28,19 @@ export default function user(state = initialState, action) {
     case LOGIN_SUCCESS:
       return Object.assign({}, state, action.user);
     case LOGIN_FAIL:
+      return state;
+    case INITIAL_UPDATE:
       return Object.assign({}, state, {
-        email: ""
-      });
+        isLoading: true
+      })
     case UPDATE_PROFILE:
-      return Object.assign({}, state, action.user)
+      return Object.assign({}, state, action.user, {
+        isLoading: false
+      })
+    case UPDATE_FAIL:
+      return Object.assign({}, state, {
+        isLoading: false
+      });
     default:
       return state;
   }
