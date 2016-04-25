@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Login from '../components/Login'
 import { getUser } from '../reducers/user'
 import { updateProfile } from '../actions'
 import { browserHistory } from 'react-router'

@@ -4,6 +4,7 @@ import Login from '../components/Login'
 import { facebookCallback } from '../actions'
 import { getUser } from '../reducers/user'
 import { Link } from 'react-router'
+import { browserHistory } from 'react-router'
 import {
   DropdownButton,
   MenuItem,
@@ -20,10 +21,16 @@ class HeaderContainer extends Component {
       user
     } = this.props;
 
+    const navigateViaRouter = (event) => {
+      event.preventDefault()
+      browserHistory.push(event.currentTarget.href)
+    }
+
     const renderDropdownButton = (
       <DropdownButton bsStyle="default" pullRight title={user.name.split(' ')[0]} key={user.id} id={`user-profile-dropdown`}>
         <MenuItem eventKey="1">
           <Link to="/profile">Profile</Link>
+          <Link to="/exercises">Exercises</Link>
         </MenuItem>
       </DropdownButton>
     );
@@ -32,7 +39,7 @@ class HeaderContainer extends Component {
       <Grid styleName="header" id="header">
         <Row styleName="vertical-middle" className="vertical-middle">
           <Col xs={6} ms={6} md={6}>
-            Left Header
+            <a styleName="logo" href="/" onClick={navigateViaRouter}><h4>HAPPY POLAR</h4></a>
           </Col>
           <Col xs={6} ms={6} md={6}>
             <div styleName="rightHeader" className="rightHeader">

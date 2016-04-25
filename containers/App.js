@@ -14,7 +14,6 @@ class App extends Component {
         <div styleName='content' id="content">
           {this.props.children}
         </div>
-        <FooterContainer />
       </div>
     )
   }

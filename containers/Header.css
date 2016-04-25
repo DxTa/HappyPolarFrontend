@@ -1,11 +1,18 @@
 .header {
   width: 100%;
   height: 60px;
-  background: gray;
+  background: #288feb;
   position: fixed;
   top: 0;
 }
 
+.logo {
+  color: white;
+}
+
+.logo:hover {
+  text-decoration: initial;
+}
 
 .vertical-middle {
   height: 100%;

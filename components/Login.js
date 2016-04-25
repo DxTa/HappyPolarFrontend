@@ -13,7 +13,6 @@ class Login extends React.Component {
     } = this.props;
 
     const responseFacebook = (response) => {
-      console.log(response);
       loginCallback(response);
     }
 
@@ -21,6 +20,7 @@ class Login extends React.Component {
       <FacebookLogin
       appId="495899663951920"
       autoLoad={true}
+      scope="email, user_friends, public_profile"
       callback={responseFacebook}
       cssClass="my-facebook-button-class"
       icon="fa-facebook" />

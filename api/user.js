@@ -14,9 +14,10 @@ export default {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + accessToken
       },
       body: JSON.stringify({
-        access_token: accessToken
+        accessToken
       })
     })
     .then((response) => response.json())
@@ -45,7 +46,7 @@ export default {
     })
   },
 
-  updateProfile(payload, cb) {
+  updateProfile(token, payload, cb) {
     const {
       _id,
       age,
@@ -59,6 +60,7 @@ export default {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + token
       },
       body: JSON.stringify({
         age,

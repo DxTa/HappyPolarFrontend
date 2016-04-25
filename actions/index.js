@@ -1,4 +1,6 @@
 import userAPI from '../api/user'
+import exerciseAPI from '../api/exercise'
+import sessionAPI from '../api/session'
 import * as types from '../constants/ActionTypes';
 
 export function facebookCallback(authInfo) {
@@ -47,11 +49,12 @@ export function fetchProfile(id) {
 }
 
 export function updateProfile(toUpdate) {
-  return(dispatch, state) => {
+  return(dispatch, getState) => {
     dispatch({
       type: types.INITIAL_UPDATE
     });
-    userAPI.updateProfile(toUpdate, (res) => {
+    const token = getState().user.token
+    userAPI.updateProfile(token, toUpdate, (res) => {
       if (res.error) {
         dispatch({
           type: types.UPDATE_FAIL
@@ -60,6 +63,61 @@ export function updateProfile(toUpdate) {
         dispatch({
           type: types.UPDATE_PROFILE,
           user: res
+        });
+      }
+    })
+  }
+}
+
+export function fetchExercises() {
+  return(dispatch, getState) => {
+    const token = getState().user.token
+    exerciseAPI.fetchAll(token, (res) => {
+      if (res.error) {
+        // dispatch({
+          // type: types.UPDATE_FAIL
+        // });
+      } else {
+        dispatch({
+          type: types.REPLACE_EXERCISES,
+          exercises: res
+        });
+      }
+    })
+  }
+}
+
+export function fetchSessions() {
+  return(dispatch, getState) => {
+    const token = getState().user.token
+    sessionAPI.fetchAll(token, (res) => {
+      if (res.error) {
+        // dispatch({
+          // type: types.UPDATE_FAIL
+        // });
+      } else {
+        dispatch({
+          type: types.REPLACE_SESSIONS,
+          sessions: res
+        });
+      }
+    })
+  }
+}
+
+export function fetchExercise(id) {
+  return(dispatch, getState) => {
+    const token = getState().user.token
+    exerciseAPI.fetchSessions(id, token, (res) => {
+      if (res.error) {
+        // dispatch({
+          // type: types.UPDATE_FAIL
+        // });
+      } else {
+        dispatch({
+          type: types.REPLACE_SESSIONS,
+          exercise_id: id,
+          sessions: res
         });
       }
     })
