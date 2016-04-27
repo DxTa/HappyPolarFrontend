@@ -1,8 +1,9 @@
 .content {
-  max-height: calc(100% - 120px);
+  /* max-height: calc(100% - 120px); */
   overflow-y: scroll;
-  padding: 0px 2% !important;
+  /* padding: 0px 2% !important; */
   margin-top: 60px !important;
+  height: 100%;
 }
 
 
@@ -13,4 +14,5 @@
   margin: 0;
   padding: 0;
 }
+
 

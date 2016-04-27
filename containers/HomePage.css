@@ -1,0 +1,28 @@
+.hero {
+	background: url('http://i.imgur.com/uncerxo.jpg');
+	background-size: cover;
+	clear: both;
+  height: 100%;
+  /* height: 350px; */
+}
+
+.control-box-wrapper {
+	background: rgba(36, 41, 51, 0.25);
+	width: 100%;
+  height: 100%;
+  display: table;
+  /* position: relative; */
+}
+
+.control-box {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+
+.slogan {
+	color: #fff;
+	margin: 40px;
+	font-weight: 100;
+}

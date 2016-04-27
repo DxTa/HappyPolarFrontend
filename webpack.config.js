@@ -4,6 +4,7 @@ var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 function isProduction() {
+  return true
 	return process.env.NODE_ENV === 'production';
 }
 

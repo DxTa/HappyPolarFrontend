@@ -88,7 +88,7 @@ class ExercisesContainer extends Component {
     })
 
     return (
-      <div>
+      <Grid>
         <h2>Exercises</h2>
         <hr />
         { data.length == 0 ? "" : barChart }
@@ -97,8 +97,7 @@ class ExercisesContainer extends Component {
             { exercisesElement }
           </div>
         </div>
-      </div>
-
+      </Grid>
     )
   }
 }

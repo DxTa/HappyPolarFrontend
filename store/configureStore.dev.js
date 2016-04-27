@@ -10,8 +10,7 @@ export default function configureStore(initialState) {
     reducer,
     initialState,
     compose(
-      applyMiddleware(thunk, promise, createLogger()),
-      DevTools.instrument()
+      applyMiddleware(thunk, promise)
     )
   );
 

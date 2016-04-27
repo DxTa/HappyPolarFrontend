@@ -39,7 +39,7 @@ class HeaderContainer extends Component {
       <Grid styleName="header" id="header">
         <Row styleName="vertical-middle" className="vertical-middle">
           <Col xs={6} ms={6} md={6}>
-            <a styleName="logo" href="/" onClick={navigateViaRouter}><h4>HAPPY POLAR</h4></a>
+            <a styleName="logo" href="/welcome"><h4>HAPPY POLAR</h4></a>
           </Col>
           <Col xs={6} ms={6} md={6}>
             <div styleName="rightHeader" className="rightHeader">
